@@ -80,19 +80,16 @@ QVariant Settings::defaultValue ( const QString& key ) const
 void Settings::setupValueList() {
 
     //look up values for setting server/webpage for license and update testing.
-    mValueList["updatePage"] = QVariant(AppInfo::inst()->liveUpdatePage + AppInfo::inst()->liveUpdatePageVals);
     mValueList["lastUsed"] = QVariant("");
     
     //license information
     mValueList["firstName"] = QVariant("");
     mValueList["lastName"] = QVariant("");
     mValueList["email"] = QVariant("");
-    mValueList["serialNumber"] = QVariant("");
 
     QString userDocs = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
     
     //general application options
-    mValueList["checkForUpdates"] = QVariant(true);
     mValueList["fileLocation"] = QVariant(userDocs);
 
     mValueList["maxRecentFiles"] = QVariant(5);

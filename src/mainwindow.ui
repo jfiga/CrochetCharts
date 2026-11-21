@@ -386,7 +386,6 @@
      <string>&amp;Tools</string>
     </property>
     <addaction name="actionStitchLibrary"/>
-    <addaction name="actionCheckForUpdates"/>
     <addaction name="separator"/>
     <addaction name="actionOptions"/>
    </widget>
@@ -1068,11 +1067,6 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+P</string>
-   </property>
-  </action>
-  <action name="actionCheckForUpdates">
-   <property name="text">
-    <string>&amp;Check for Updates</string>
    </property>
   </action>
   <action name="actionRemoveTab">

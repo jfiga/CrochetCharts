@@ -37,16 +37,6 @@
        <string>Application</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_4">
-       <item row="0" column="1">
-        <widget class="QCheckBox" name="checkForUpdates">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="1" colspan="2">
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
@@ -110,19 +100,6 @@
          </property>
          <property name="buddy">
           <cstring>fileLocation</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_26">
-         <property name="text">
-          <string>Check for Updates on Startup:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-         <property name="buddy">
-          <cstring>checkForUpdates</cstring>
          </property>
         </widget>
        </item>
@@ -1001,7 +978,6 @@ p, li { white-space: pre-wrap; }
   </layout>
  </widget>
  <tabstops>
-  <tabstop>checkForUpdates</tabstop>
   <tabstop>fileLocation</tabstop>
   <tabstop>folderSelector</tabstop>
   <tabstop>maxRecentFiles</tabstop>

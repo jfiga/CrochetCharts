@@ -10,7 +10,7 @@ set(crochet_resources
 
 set(crochet_qt_libs
     Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Svg Qt6::SvgWidgets
-    Qt6::Network Qt6::PrintSupport)
+    Qt6::PrintSupport)
 
 if(WIN32)
     #generate the embeded icon for the exe file.

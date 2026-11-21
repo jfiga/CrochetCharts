@@ -44,7 +44,7 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/version.cpp.in
                 ${CMAKE_CURRENT_BINARY_DIR}/version.cpp)
 set(crochet_version "${CMAKE_CURRENT_BINARY_DIR}/version.cpp")
 
-find_package(Qt6 6.2 REQUIRED COMPONENTS Core Gui Widgets Svg SvgWidgets Network PrintSupport)
+find_package(Qt6 6.2 REQUIRED COMPONENTS Core Gui Widgets Svg SvgWidgets PrintSupport)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)

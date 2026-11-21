@@ -33,8 +33,6 @@ AppInfo::AppInfo() :
     appVersionShort(gGIT_VERSION_SHORT),
     appBuildInfo(QString(__DATE__) + " " + QString(__TIME__)),
 
-    liveUpdatePage("http://stitchworkssoftware.com/custom/update.php"),
-    liveUpdatePageVals("?sws_software=%1&sws_version=%2&sws_os=%3&sws_sn=%4&sws_arch=%5&ver=2"),
 
     demoString(QObject::tr("Stitch Works Software - Demo Version  -  ")),
 

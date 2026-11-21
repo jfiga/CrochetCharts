@@ -64,7 +64,6 @@
 MainWindow::MainWindow(QStringList fileNames, QWidget* parent)
     : QMainWindow(parent),
     ui(new Ui::MainWindow),
-    mUpdater(0),
 	mResizeUI(0),
     mAlignDock(0),
     mRowsDock(0),
@@ -88,11 +87,6 @@ MainWindow::MainWindow(QStringList fileNames, QWidget* parent)
 
     setUnifiedTitleAndToolBarOnMac(true);
     
-#ifndef APPLE_APP_STORE
-    bool checkForUpdates = Settings::inst()->value("checkForUpdates").toBool();
-    if(checkForUpdates)
-        checkUpdates();
-#endif
 
     setupStitchPalette();
 	setupLayersDock();
@@ -126,9 +120,6 @@ MainWindow::~MainWindow()
 	delete mGridGroup;
 	delete ui;
 	delete mFile;
-	
-	if (mUpdater)
-		delete mUpdater;
 }
 
 void MainWindow::dragEnterEvent(QDragEnterEvent *e)
@@ -179,21 +170,6 @@ void MainWindow::loadFiles(QStringList fileNames)
         Settings::inst()->files.insert(mFile->fileName.toLower(), newWin);
         addToRecentFiles(fileName);
     }
-}
-
-void MainWindow::checkUpdates(bool silent)
-{
-    if(mUpdater) {
-        delete mUpdater;
-        mUpdater = 0;
-    }
-    
-    //TODO: check for updates in a separate thread.
-    mUpdater = new Updater(this);
-    // append the updater to the centralWidget to keep it out of the way of the menus.
-    ui->centralWidget->layout()->addWidget(mUpdater); 
-        
-    mUpdater->checkForUpdates(silent); //check at startup is always silent.
 }
 
 void MainWindow::setApplicationTitle()
@@ -606,11 +582,6 @@ void MainWindow::setupMenus()
     connect(ui->menuTools, SIGNAL(aboutToShow()), SLOT(menuToolsAboutToShow()));
     connect(ui->actionOptions, SIGNAL(triggered()), SLOT(toolsOptions()));
     connect(ui->actionStitchLibrary, SIGNAL(triggered()), SLOT(toolsStitchLibrary()));
-    connect(ui->actionCheckForUpdates, SIGNAL(triggered()), SLOT(toolsCheckForUpdates()));
-    
-#ifdef APPLE_APP_STORE
-    ui->actionCheckForUpdates->setVisible(false);
-#endif
 
     //Help Menu
     connect(ui->actionAbout, SIGNAL(triggered()), SLOT(helpAbout()));
@@ -891,7 +862,6 @@ void MainWindow::helpAbout()
     QString fName = Settings::inst()->value("firstName").toString();
     QString lName = Settings::inst()->value("lastName").toString();
     QString email = Settings::inst()->value("email").toString();
-    QString sn = Settings::inst()->value("serialNumber").toString();
 
     QString dedication = tr("<p>This version is dedicated to:<br /> My Grandmother (Aug 20, 1926 - Jan 8, 2013)</p>");
     aboutInfo.append(dedication);
@@ -1674,12 +1644,6 @@ void MainWindow::chartEditName()
         if(newName != currentName)
             documentIsModified(true);
     }
-}
-
-void MainWindow::toolsCheckForUpdates()
-{
-    bool silent = false;
-    checkUpdates(silent);
 }
 
 void MainWindow::toolsStitchLibrary()

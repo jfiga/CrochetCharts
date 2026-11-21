@@ -24,7 +24,6 @@
 #include <QMainWindow>
 
 #include "filefactory.h"
-#include "updater.h"
 #include "undogroup.h"
 
 #include "resizeui.h"
@@ -147,7 +146,6 @@ private slots:
     void menuToolsAboutToShow();
     void toolsOptions();
     void toolsStitchLibrary();
-    void toolsCheckForUpdates();
 	
 	void changeSelectMode(QAction* action);
 	void nextSelectMode();
@@ -209,7 +207,6 @@ private:
      */
     void readSettings();
 
-    void checkUpdates(bool silent = true);
 
     bool safeToClose();
     bool promptToSave();
@@ -223,7 +220,6 @@ private:
     Ui::MainWindow* ui;
 
     FileFactory* mFile;
-    Updater* mUpdater;
 
 //for the savefile class:
 protected:

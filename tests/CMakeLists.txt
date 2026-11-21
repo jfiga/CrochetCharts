@@ -24,4 +24,4 @@ add_executable(tests main.cpp ${crochet_test_srcs} ${crochet_test_qobject_header
     ${crochet_app_resources} ${crochet_app_cpp} ${crochet_ui_h})
 set_target_properties(tests PROPERTIES AUTOUIC_SEARCH_PATHS "${CMAKE_SOURCE_DIR}/src")
 target_link_libraries(tests PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Svg Qt6::SvgWidgets
-    Qt6::Network Qt6::PrintSupport Qt6::Test)
+    Qt6::PrintSupport Qt6::Test)
