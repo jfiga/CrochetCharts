@@ -20,8 +20,8 @@
  \****************************************************************************/
 #include "updater.h"
 
-#include <QtNetwork/QHttp>
-#include <QtNetwork/QNetworkRequest>
+#include <QNetworkRequest>
+#include <QStandardPaths>
 
 #include <QDesktopServices>
 
@@ -64,7 +64,9 @@ Updater::Updater(QWidget* parent)
                             .arg(AppInfo::inst()->appVersion)
                             .arg(os).arg(sn).arg(arch));
 
-    mProgDialog = new QProgressDialog(this);
+    //created on demand: since Qt 5.5 a QProgressDialog shows itself
+    //minimumDuration after construction, even if no progress was reported.
+    mProgDialog = 0;
 }
 
 Updater::~Updater()
@@ -102,7 +104,7 @@ void Updater::httpFinished()
         qWarning() << "Failed to connect to server.";
     } else {
 
-        QStringList urls = data.split("::", QString::SkipEmptyParts);
+        QStringList urls = data.split("::", Qt::SkipEmptyParts);
         if(urls.count() == 2) {
             QMessageBox msgbox(this);
             msgbox.setIcon(QMessageBox::Information);
@@ -139,7 +141,7 @@ void Updater::httpReadyRead()
 void Updater::downloadInstaller(QUrl url)
 {   
     QString fName = url.path().split("/").last();
-    QString path = QDesktopServices::storageLocation(QDesktopServices::TempLocation);
+    QString path = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
     installer = new QFile(path + "/" + fName);
     
     if (!installer->open(QIODevice::WriteOnly)){
@@ -150,8 +152,11 @@ void Updater::downloadInstaller(QUrl url)
         return;
     }
     
+    if(!mProgDialog) {
+        mProgDialog = new QProgressDialog(this);
+        connect(mProgDialog, SIGNAL(canceled()), this, SLOT(cancelDownload()));
+    }
     mProgDialog->setLabelText(tr("Downloading %1").arg(fName));
-    connect(mProgDialog, SIGNAL(canceled()), this, SLOT(cancelDownload()));
     mProgDialog->show();
     
     instReply = qnam.get(QNetworkRequest(url));
@@ -172,8 +177,10 @@ void Updater::cancelDownload()
 
 void Updater::updateDataTransferProgress(qint64 readBytes, qint64 totalBytes)
 {
-    mProgDialog->setMaximum(totalBytes);
-    mProgDialog->setValue(readBytes);
+    if(mProgDialog) {
+        mProgDialog->setMaximum(totalBytes);
+        mProgDialog->setValue(readBytes);
+    }
 }
 
 void Updater::httpFinishedInstaller()
@@ -194,7 +201,8 @@ void Updater::httpFinishedInstaller()
         installer->close();
     }
 
-    mProgDialog->hide();
+    if(mProgDialog)
+        mProgDialog->hide();
     if (instReply->error()) {
         installer->remove();
         //TODO: prompt user that the download failed.

@@ -18,6 +18,8 @@
  along with Crochet Charts. If not, see <http://www.gnu.org/licenses/>.
 
  \****************************************************************************/
+#include <QStandardPaths>
+#include <QApplication>
 #include "settings.h"
 
 #include <QDebug>
@@ -87,7 +89,7 @@ void Settings::setupValueList() {
     mValueList["email"] = QVariant("");
     mValueList["serialNumber"] = QVariant("");
 
-    QString userDocs = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
+    QString userDocs = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
     
     //general application options
     mValueList["checkForUpdates"] = QVariant(true);
@@ -162,7 +164,16 @@ void Settings::setRecentFiles(QStringList files)
 
 QString Settings::userSettingsFolder()
 {
-    QString folder = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
+    QString folder = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+
+#if defined(Q_OS_LINUX)
+    //Qt 4 stored user data in $XDG_DATA_HOME/data/<org>/<app>; keep using it
+    //so existing stitch sets and settings are not lost after upgrading.
+    QString legacy = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation)
+            + "/data/" + qApp->organizationName() + "/" + qApp->applicationName();
+    if(!QFileInfo::exists(folder) && QFileInfo::exists(legacy))
+        folder = legacy;
+#endif
     if(!QFileInfo(folder).exists())
         QDir(folder).mkpath(folder);
     return folder + "/";

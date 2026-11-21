@@ -39,7 +39,7 @@ class Indicator : public QGraphicsTextItem
 public:
     enum {Type = UserType + 15 };
 
-    Indicator(QGraphicsItem* parent = 0, QGraphicsScene* scene = 0);
+    Indicator(QGraphicsItem* parent = 0);
     ~Indicator();
 
     QRectF boundingRect() const;

@@ -64,11 +64,11 @@ ExportUi::ExportUi(QTabWidget* tab, QMap<QString, int>* stitches,
 	headerFooterToggled(false);
     
     updateExportOptions(ui->fileType->currentText());
-    connect(ui->fileType, SIGNAL(currentIndexChanged(QString)),
+    connect(ui->fileType, SIGNAL(currentTextChanged(QString)),
             this, SLOT(updateExportOptions(QString)));
     generateSelectionList(true);
 
-    connect(ui->chartSelection, SIGNAL(currentIndexChanged(QString)), this, SLOT(setSelection(QString)));
+    connect(ui->chartSelection, SIGNAL(currentTextChanged(QString)), this, SLOT(setSelection(QString)));
     
     connect(ui->buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
     connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(exportData()));
@@ -433,7 +433,7 @@ void ExportUi::exportLegendPdf()
 
     QSizeF size = scene->sceneRect().size();
     if(pageToChartSize)
-        printer->setPaperSize(size, QPrinter::Point);
+        printer->setPageSize(QPageSize(size, QPageSize::Point));
 
     p->begin(printer);
 	
@@ -533,7 +533,7 @@ void ExportUi::exportPdf()
 
     QSizeF size = ui->view->scene()->sceneRect().size();
     if(pageToChartSize)
-        printer->setPaperSize(size, QPrinter::Point);
+        printer->setPageSize(QPageSize(size, QPageSize::Point));
     
     p->begin(printer);
     

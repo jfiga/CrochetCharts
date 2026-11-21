@@ -71,9 +71,9 @@ PropertiesDock::PropertiesDock(QTabWidget *tabWidget, QWidget *parent) :
 
 	connect(ui->snapAngle, SIGNAL(toggled(bool)), SLOT(chartUpdateAlignAngle(bool)));
     connect(ui->showChartCenter, SIGNAL(toggled(bool)), SLOT(chartUpdateChartCenter(bool)));
-    connect(ui->guidelinesType, SIGNAL(currentIndexChanged(QString)), SLOT(chartUpdateGuidelines()));
+    connect(ui->guidelinesType, SIGNAL(currentTextChanged(QString)), SLOT(chartUpdateGuidelines()));
 
-    connect(ui->st_stitch, SIGNAL(currentIndexChanged(QString)), SLOT(cellUpdateStitch(QString)));
+    connect(ui->st_stitch, SIGNAL(currentTextChanged(QString)), SLOT(cellUpdateStitch(QString)));
 
     connect(ui->gen_deleteItems, SIGNAL(clicked()), SLOT(cellDeleteItems()));
 
@@ -92,7 +92,7 @@ PropertiesDock::PropertiesDock(QTabWidget *tabWidget, QWidget *parent) :
 	connect(ui->ind_fontComboBox, SIGNAL(currentFontChanged(const QFont&)), SLOT(indicatorUpdate()));
 	connect(ui->ind_size, SIGNAL(valueChanged(int)), SLOT(indicatorUpdate()));
 
-	connect(ui->ci_layer, SIGNAL(currentIndexChanged(const QString&)),
+	connect(ui->ci_layer, SIGNAL(currentTextChanged(QString)),
 			SLOT(chartImageUpdateZLayer(const QString&)));
 	connect(ui->ci_path, SIGNAL(textChanged(const QString&)), SLOT(chartImageUpdatePath(const QString&)));
 	connect(ui->ci_openFileBrowser, SIGNAL(clicked()), SLOT(chartImageChoosePath()));

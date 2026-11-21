@@ -18,8 +18,7 @@ void AbstractSelectionBand::setDefaultStyle(QPainter& p)
 	p.setRenderHint(QPainter::Antialiasing, true);
 	p.setRenderHint(QPainter::TextAntialiasing, false);
 	p.setRenderHint(QPainter::SmoothPixmapTransform, false);
-	p.setRenderHint(QPainter::HighQualityAntialiasing, false);
-	p.setRenderHint(QPainter::NonCosmeticDefaultPen, true);
+	p.setRenderHint(QPainter::Antialiasing, false);
 	
 	QBrush b;
 	b = (QApplication::palette().highlight());
@@ -160,7 +159,7 @@ void LassoBand::updatePath()
 	newr = newr.normalized();
 	
 	//expand our size rectangle to contain newr
-	mMaxGeom = mMaxGeom.unite(newr).normalized();
+	mMaxGeom = mMaxGeom.united(newr).normalized();
 	
 	//set the geometry to that rectangle, translated to our position
 	setGeometry(mMaxGeom.translated(mPosition.x(), mPosition.y()).normalized());
@@ -243,7 +242,7 @@ void LineBand::updatePath()
 	newr = newr.normalized();
 	
 	//expand our size rectangle to contain newr
-	mMaxGeom = mMaxGeom.unite(newr).normalized();
+	mMaxGeom = mMaxGeom.united(newr).normalized();
 	
 	//set the geometry to that rectangle, translated to our position
 	setGeometry(mMaxGeom.translated(mPosition.x(), mPosition.y()).normalized());

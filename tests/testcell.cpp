@@ -19,6 +19,7 @@
 
  \****************************************************************************/
 #include "testcell.h"
+#include "../src/ChartItemTools.h"
 #include "../src/stitchlibrary.h"
 
 #include <QPainter>
@@ -106,9 +107,9 @@ void TestCell::setRotation_data()
     QTest::addColumn<qreal>("angle");
     QTest::addColumn<QString>("rasterHash");
 
-    QTest::newRow("ch")    << "ch" << 32.0 << 16.0 << 45.0 << "8bc84f266a6b29c060e99e80cc60f5a4dd1c0db9";
-    QTest::newRow("hdc")   << "hdc" << 32.0 << 64.0 << 45.0 << "4a7eac0d444a5d98f80ed44cd03be3c85ea8f2c1";
-    QTest::newRow("dc")    << "dc" << 32.0 << 80.0 << 45.0 << "26fcac78640d8b5dfe7a350dcfa51f00948e80bb";
+    QTest::newRow("ch")    << "ch" << 32.0 << 16.0 << 45.0 << "4c0b196681ae83f9f9c1835abfde7c2b86d379a8";
+    QTest::newRow("hdc")   << "hdc" << 32.0 << 64.0 << 45.0 << "45561bb6d7454205da5fa37fa22e01e043f74255";
+    QTest::newRow("dc")    << "dc" << 32.0 << 80.0 << 45.0 << "09c1a34efff5eb2774e51147b2960f01402975f2";
 
 }
 
@@ -133,7 +134,8 @@ void TestCell::setScale()
 
     QPointF origin = QPointF(c->boundingRect().width()/2, c->boundingRect().height());
     c->setTransformOriginPoint(origin);
-    c->setScale(scaleX, scaleY);
+    ChartItemTools::setScaleX(c, scaleX);
+    ChartItemTools::setScaleY(c, scaleY);
 
     QString rasterImage = "TestCell-ScaleTest-" + QString::number(i) + "-" + name + ".png";
 
@@ -158,9 +160,9 @@ void TestCell::setScale_data()
     QTest::addColumn<qreal>("scaleY");
     QTest::addColumn<QString>("rasterHash");
 
-    QTest::newRow("ch")    << "ch" << 32.0 << 16.0 << 1.0 << 1.0 << "0be6578d22717ba56082a408e8ed128e8114a30c";
-    QTest::newRow("hdc")   << "hdc" << 32.0 << 64.0 << 2.5 << 2.5 << "090bf8ac828e1d2ad0da3ec240539276148bc134";
-    QTest::newRow("dc")    << "dc" << 32.0 << 80.0 << 2.5 << 2.5 << "bdb70eea2145b79c7cb4e50a6148f5ec4d09f708";
+    QTest::newRow("ch")    << "ch" << 32.0 << 16.0 << 1.0 << 1.0 << "7d1cdaeb6750679933628de65d3bf6e3e39598d8";
+    QTest::newRow("hdc")   << "hdc" << 32.0 << 64.0 << 2.5 << 2.5 << "91e5a3165e6e466bc1b1e2cdf45932b370a9b2de";
+    QTest::newRow("dc")    << "dc" << 32.0 << 80.0 << 2.5 << 2.5 << "5b3432ae2d25a8e76aa73f895db680d3fca4681c";
 }
 
 void TestCell::setBgColor()
@@ -206,9 +208,9 @@ void TestCell::setBgColor_data()
     QTest::addColumn<QString>("color");
     QTest::addColumn<QString>("rasterHash");
 
-    QTest::newRow("ch")    << "ch" << 32.0 << 16.0 << "#0000FF" << "9d6c0ac6e51809f662573c9432c0b5c7064c2021";
-    QTest::newRow("hdc")   << "hdc" << 32.0 << 64.0 << "#FF0000" << "c3105395f5d7e6ad8269208d25e8be76ab7a9455";
-    QTest::newRow("dc")    << "dc" << 32.0 << 80.0 << "#00FF00" << "0a4fedb0079e244671ab5a376984f40df3394b94";
+    QTest::newRow("ch")    << "ch" << 32.0 << 16.0 << "#0000FF" << "02513fdc49de5f6e7dfe6bd3bf02011b27f9d1b5";
+    QTest::newRow("hdc")   << "hdc" << 32.0 << 64.0 << "#FF0000" << "4df2003561727ffecac22d3f11e47d813dfa4e88";
+    QTest::newRow("dc")    << "dc" << 32.0 << 80.0 << "#00FF00" << "d90842263fd9d49753edf69b112c23673e33d6e0";
 
 }
 
@@ -236,7 +238,8 @@ void TestCell::setAllProperties()
     c->setTransformOriginPoint(origin);
     c->setBgColor(QColor(color));
     c->setRotation(angle);
-    c->setScale(scaleX, scaleY);
+    ChartItemTools::setScaleX(c, scaleX);
+    ChartItemTools::setScaleY(c, scaleY);
 
 
     QString rasterImage = "TestCell-AllProperties-" + QString::number(i) + "-" + name + ".png";
@@ -265,11 +268,11 @@ void TestCell::setAllProperties_data()
     QTest::addColumn<QString>("rasterHash");
 
     QTest::newRow("ch")    << "ch" << 32.0 << 16.0 << 45.0 << 1.5 << 2.0 << "#0000FF"
-                                    << "2d56f4703b3f29f1163bdd6197597e3018a004e6";
+                                    << "660213a2bc03665a8eacf3f57197e49676f92f76";
     QTest::newRow("hdc")   << "hdc" << 32.0 << 64.0 << 45.0 << 1.5 << 2.0 << "#FF0000"
-                                    << "2bffe89a7dad96f18eae2ded0dc08f7f207ceb30";
+                                    << "06b49f17c9b6273fb854e5e6c0d292b3297ffc8d";
     QTest::newRow("dc")    << "dc" << 32.0 << 80.0 << 45.0 << 1.5 << 2.0 << "#00FF00"
-                                    << "0c151d2b0aee5157a59e1ac769bb26644365ced9";
+                                    << "e614ba3c97df4df135794dcc4d841df2cf185ae5";
 
 }
 

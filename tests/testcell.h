@@ -21,7 +21,7 @@
 #ifndef TESTCELL_H
 #define TESTCELL_H
 
-#include <QtTest/QTest>
+#include <QTest>
 #include <QDebug>
 #include <QObject>
 

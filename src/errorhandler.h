@@ -21,10 +21,18 @@
 #ifndef ERRORHANDLER_H
 #define ERRORHANDLER_H
 
-void errorHandler(QtMsgType type, const char *msg)
+#include <QtGlobal>
+#include <QString>
+#include <cstdio>
+#include <cstdlib>
+
+void errorHandler(QtMsgType type, const QMessageLogContext &, const QString &message)
 {
+    const QByteArray local = message.toLocal8Bit();
+    const char *msg = local.constData();
     switch (type) {
         case QtDebugMsg:
+        case QtInfoMsg:
             fprintf(stderr, "%s\n", msg);
             break;
         case QtWarningMsg:

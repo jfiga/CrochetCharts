@@ -12,8 +12,9 @@ You will need to install the following software:
 
 All Platforms
 --------------
-+ Qt4.8
-+ cmake
++ Qt 6.2 or newer (qtbase, qtsvg)
++ cmake 3.16 or newer
++ a C++17 compiler
 + docbook
 + docbook-xsl-ns
 + Apache fop
@@ -29,7 +30,6 @@ Mac
 ----
 + Mac Developer tools Xcode
 + (Paid) Mac Developer account ( to sign the software )
-+ custom build of cmake - https://github.com/iPenguin/cmake
 
 Linux
 ------

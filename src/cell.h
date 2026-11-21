@@ -21,7 +21,7 @@
 #ifndef CELL_H
 #define CELL_H
 
-#include <QtSvg/QGraphicsSvgItem>
+#include <QGraphicsSvgItem>
 #include "stitch.h"
 #include <QPointer>
 

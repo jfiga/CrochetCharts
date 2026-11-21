@@ -22,7 +22,7 @@
 
 #include <QPainter>
 #include <QPixmap>
-#include <QtSvg/QSvgRenderer>
+#include <QSvgRenderer>
 
 #include "debug.h"
 #include <QFile>

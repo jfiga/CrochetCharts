@@ -20,6 +20,8 @@
  \****************************************************************************/
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+
+#include <QMimeData>
 #include "stitchlibraryui.h"
 #include "exportui.h"
 
@@ -248,7 +250,7 @@ void MainWindow::setupNewTabDialog()
     ui->chartStyle->setCurrentIndex(ui->chartStyle->findText(defStyle));
 
     newChartUpdateStyle(defStyle);
-    connect(ui->chartStyle, SIGNAL(currentIndexChanged(QString)), SLOT(newChartUpdateStyle(QString)));
+    connect(ui->chartStyle, SIGNAL(currentTextChanged(QString)), SLOT(newChartUpdateStyle(QString)));
     
     connect(ui->newDocBttnBox, SIGNAL(accepted()), this, SLOT(newChart()));
     connect(ui->newDocBttnBox, SIGNAL(rejected()), ui->newDocument, SLOT(hide()));   
@@ -356,7 +358,7 @@ void MainWindow::reloadLayerContent(QList<ChartLayer*>& layers, ChartLayer* sele
 		else
 			item->setCheckState(Qt::Unchecked);
 		
-		item->setData(qVariantFromValue((void*)layer), Qt::UserRole+5);
+		item->setData(QVariant::fromValue((void*)layer), Qt::UserRole+5);
 		
 		if (layer == selected)
 			selecteditem = item;
@@ -818,8 +820,8 @@ void MainWindow::selectColor(QModelIndex index)
 
 void MainWindow::filterStitchList(QString newText)
 {
-    QRegExp regExp(newText, Qt::CaseInsensitive, QRegExp::FixedString);
-    mProxyModel->setFilterRegExp(regExp);
+    mProxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
+    mProxyModel->setFilterFixedString(newText);
 }
 
 void MainWindow::clearStitchFilter()

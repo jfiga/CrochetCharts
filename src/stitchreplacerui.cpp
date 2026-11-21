@@ -39,8 +39,8 @@ StitchReplacerUi::StitchReplacerUi(QString stitch, QList< QString > patternStitc
 
     connect(ui->buttonBox, SIGNAL(accepted()), SLOT(accept()));
 
-    connect(ui->originalStitch, SIGNAL(currentIndexChanged(QString)), SLOT(updateStitches(QString)));
-    connect(ui->replacementStitch, SIGNAL(currentIndexChanged(QString)), SLOT(updateStitches(QString)));
+    connect(ui->originalStitch, SIGNAL(currentTextChanged(QString)), SLOT(updateStitches(QString)));
+    connect(ui->replacementStitch, SIGNAL(currentTextChanged(QString)), SLOT(updateStitches(QString)));
 
     populateStitchLists();
 

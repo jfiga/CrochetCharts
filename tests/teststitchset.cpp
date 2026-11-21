@@ -31,7 +31,7 @@ void TestStitchSet::setupStitchSet()
     QVERIFY(mSet->stitchCount() == 0);
     mSet->loadXmlFile("../crochet.xml");
 
-    QVERIFY(mSet->stitchCount() == 109);
+    QCOMPARE(mSet->stitchCount(), 126);
 }
 
 void TestStitchSet::findStitch()
@@ -70,8 +70,9 @@ void TestStitchSet::findStitch_data()
     QTest::addColumn<QString>("cat");
     QTest::addColumn<QString>("ws");
 
-    QTest::newRow("sl st") << "sl st" << "stitches/slip.svg" << "slip stitch" << "Basic" << "sl st";
-    QTest::newRow("ch") << "ch" << "stitches/chain.svg" << "chain" << "Basic" << "ch";
+    QTest::newRow("sl st") << "sl st" << true << ":/stitches/sl_st.svg" << "slip stitch" << "Default" << "sl st";
+    QTest::newRow("ch") << "ch" << true << ":/stitches/ch.svg" << "chain" << "Default" << "ch";
+    QTest::newRow("missing") << "not a stitch" << false << "" << "" << "" << "";
 }
 
 void TestStitchSet::saveLoadDataSet()

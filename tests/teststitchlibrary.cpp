@@ -72,7 +72,8 @@ void TestStitchLibrary::findStitch_data()
     QTest::newRow("hdc") << "hdc" << true << ":/stitches/hdc.svg" << "half double crochet" << "Default" << "hdc";
     QTest::newRow("5-dc shell") << "5-dc shell" << true << ":/stitches/5dc_shell.svg"
                                     << "5 double crochet shell" << "Default" << "5-dc shell";
-    QTest::newRow("stitch dne") << "bcm" << false << "" << "" << "" << "";
+    //unknown names resolve to a placeholder stitch drawn with the "unknown" icon.
+    QTest::newRow("stitch dne") << "bcm" << true << ":/stitches/unknown.svg" << "" << "" << "";
 
 }
 

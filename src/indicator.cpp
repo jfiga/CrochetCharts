@@ -36,8 +36,8 @@
 #include "crochetchartcommands.h"
 #include "ChartItemTools.h"
 
-Indicator::Indicator(QGraphicsItem* parent, QGraphicsScene* scene)
-    : QGraphicsTextItem(parent, scene),
+Indicator::Indicator(QGraphicsItem* parent)
+    : QGraphicsTextItem(parent),
       highlight(false)
 {
     setFlag(QGraphicsItem::ItemIsMovable);

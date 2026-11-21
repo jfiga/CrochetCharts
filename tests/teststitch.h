@@ -21,7 +21,7 @@
 #ifndef TESTSTITCH_H
 #define TESTSTITCH_H
 
-#include <QtTest/QTest>
+#include <QTest>
 #include <QDebug>
 #include <QObject>
 

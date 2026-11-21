@@ -22,6 +22,8 @@
 
 #include "cell.h"
 
+#include <QMimeData>
+
 #include <QFontMetrics>
 #include <QGraphicsSimpleTextItem>
 #include <QGraphicsSceneEvent>
@@ -952,7 +954,7 @@ QPointF Scene::snapPositionToRounds(const QPointF& pos) const
 
 void Scene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *e)
 {
-    mCurItem = itemAt(e->scenePos());
+    mCurItem = itemAt(e->scenePos(), QTransform());
 
     if(!mCurItem)
         return;
@@ -1257,7 +1259,7 @@ void Scene::rowEditMousePress(QGraphicsSceneMouseEvent* e)
         return;
 
 
-    QGraphicsItem* gi = itemAt(e->scenePos());
+    QGraphicsItem* gi = itemAt(e->scenePos(), QTransform());
     mStartCell = qgraphicsitem_cast<Cell*>(gi);
     if(mStartCell) {
 
@@ -1294,7 +1296,7 @@ void Scene::rowEditMouseMove(QGraphicsSceneMouseEvent* e)
 
     QPointF startPt = mRowLine->line().p1();
     
-    QGraphicsItem* gi = itemAt(e->scenePos());
+    QGraphicsItem* gi = itemAt(e->scenePos(), QTransform());
     if(gi) {
         Cell* c = qgraphicsitem_cast<Cell*>(gi);
         if(!c)
@@ -1547,7 +1549,7 @@ void Scene::drawBackground(QPainter * painter, const QRectF & rect)
 		painter->fillRect(rect, QColor(212,212,212));
 		
 		//get the sceneboundingrectangle intersected with the rect
-		QRectF foreground = sceneRect().intersect(rect);
+		QRectF foreground = sceneRect().intersected(rect);
 		
 		//draw that in white
 		painter->fillRect(foreground, QColor(255,255,255));
@@ -1872,9 +1874,9 @@ void Scene::generateGuidelinesRounds(int spacingW, int spacingH, int columns, in
 				2*(r+1)*spacingH,
 				2*(r+1)*spacingH)
 			,0
-			,this
 		)
 		;
+		addItem(g);
 		g->setZValue(-1);
 		mGuidelinesLines.append(g);
     }
@@ -2695,7 +2697,7 @@ void Scene::paste()
 			//get the bounding box of all pasted items
 			QRectF box = items.first()->sceneBoundingRect();
 			foreach(QGraphicsItem* item, items) {
-				box = box.unite(item->sceneBoundingRect());
+				box = box.united(item->sceneBoundingRect());
 			}
 			
 			//get the cursor position in the scene
@@ -2996,7 +2998,8 @@ ItemGroup* Scene::group(QList<QGraphicsItem*> items, ItemGroup* g)
     clearSelection();
 		
     if(!g) {
-        g = new ItemGroup(0, this);
+        g = new ItemGroup();
+        addItem(g);
 		g->setLayer(getCurrentLayer()->uid());
     }
 

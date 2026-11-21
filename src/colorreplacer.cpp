@@ -46,8 +46,8 @@ ColorReplacer::ColorReplacer(QList<QString> colorList, QWidget *parent) :
     connect(ui->stitchesOnly, SIGNAL(clicked()), SLOT(setSelection()));
     connect(ui->backgroundOnly, SIGNAL(clicked()), SLOT(setSelection()));
 
-    connect(ui->originalColor, SIGNAL(currentIndexChanged(QString)), SLOT(origColorChanged(QString)));
-    connect(ui->newColor, SIGNAL(currentIndexChanged(QString)), SLOT(newColorChanged(QString)));
+    connect(ui->originalColor, SIGNAL(currentTextChanged(QString)), SLOT(origColorChanged(QString)));
+    connect(ui->newColor, SIGNAL(currentTextChanged(QString)), SLOT(newColorChanged(QString)));
 
     populateColorLists();
 }

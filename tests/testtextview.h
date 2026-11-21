@@ -21,7 +21,7 @@
 #ifndef TESTTEXTVIEW_H
 #define TESTTEXTVIEW_H
 
-#include <QtTest/QTest>
+#include <QTest>
 #include <QDebug>
 #include <QObject>
 

@@ -21,7 +21,7 @@
 #ifndef TESTSTITCHLIBRARY_H
 #define TESTSTITCHLIBRARY_H
 
-#include <QtTest/QTest>
+#include <QTest>
 #include <QObject>
 #include "../src/stitchlibrary.h"
 
